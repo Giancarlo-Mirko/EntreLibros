@@ -7,13 +7,12 @@ import {
 } from 'react-router-dom';
 import LandingPage from './pages/landingPage/landingPage.jsx';
 import SignIn from './pages/SignIn.jsx';
-
 import { getAuth } from 'firebase/auth';
 import { AuthContextProvider } from './context/AuthContextProvider.jsx';
 import Home from './pages/home/Home.jsx';
 
 const AppContext = createContext();
-const { Provider: AppProvider } = AppContext;
+const { Provider: AppProvider, Consumer } = AppContext;
 
 function App() {
   const auth = getAuth();
@@ -46,4 +45,4 @@ function App() {
   );
 }
 
-export { App, AppContext };
+export { App, Consumer, AppContext };

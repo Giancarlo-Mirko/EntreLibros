@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserAuth } from '../context/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../components/loader/Loader';
 import { Wrapper2 } from './theme/generalStyles/generalStyles';
+import { AppContext } from '../App';
+import Loader from '../components/loader/Loader';
 
 const SignIn = () => {
-  const [loader, setLoader] = useState(false);
-  const { googleSignIn, user } = UserAuth();
+  const { googleSignIn } = UserAuth();
+  const { currentUser } = useContext(AppContext);
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
 
   const handleGoogleSignIn = async () => {
     try {
@@ -21,19 +23,18 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (user != null) {
+    if (currentUser != null) {
       navigate('/home');
     }
-  }, [user]);
+  }, [currentUser]);
 
   return (
     <>
-      {/* <Loader /> */}
       {loader && <Loader />}
       <Wrapper2>
         <h1>Sign in</h1>
         <div>
-          <button onClick={handleGoogleSignIn}> google buton</button>
+          <button onClick={handleGoogleSignIn}>Google Button</button>
         </div>
       </Wrapper2>
     </>

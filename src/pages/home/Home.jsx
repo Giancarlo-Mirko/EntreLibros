@@ -1,12 +1,13 @@
 import Header from '../../components/header/Header';
-import { UserAuth } from '../../context/AuthContextProvider';
+import { AppContext } from '../../App';
+import { useContext } from 'react';
 const Home = () => {
-  const { user } = UserAuth();
+  const { currentUser } = useContext(AppContext);
   return (
     <>
       <Header />
       <h1>Home</h1>
-      <h3>{user.displayName}</h3>
+      <h3>{currentUser.displayName}</h3>
     </>
   );
 };

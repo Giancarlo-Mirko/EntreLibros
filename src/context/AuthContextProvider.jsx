@@ -1,8 +1,8 @@
-import { useContext, createContext, useEffect, useState } from 'react';
+import { useContext, createContext, useEffect } from 'react';
 import {
   GoogleAuthProvider,
-  // signInWithPopup,
-  signInWithRedirect,
+  signInWithPopup,
+  // signInWithRedirect,
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
@@ -14,12 +14,10 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const { setCurrentUser } = useContext(AppContext);
 
-  const [user, setUser] = useState({});
-
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    // signInWithPopup(auth, provider);
-    signInWithRedirect(auth, provider);
+    signInWithPopup(auth, provider);
+    // signInWithRedirect(auth, provider);
   };
 
   // para cerrar sesion
@@ -29,7 +27,6 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       setCurrentUser(currentUser);
       console.log('User', currentUser);
     });
@@ -39,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
+    <AuthContext.Provider value={{ googleSignIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );
