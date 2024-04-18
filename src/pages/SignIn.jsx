@@ -5,6 +5,9 @@ import { Wrapper2 } from './theme/generalStyles/generalStyles';
 import { AppContext } from '../App';
 import Loader from '../components/loader/Loader';
 
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
+
 const SignIn = () => {
   const { googleSignIn } = UserAuth();
   const { currentUser } = useContext(AppContext);
@@ -17,17 +20,38 @@ const SignIn = () => {
       await googleSignIn();
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoader(false);
     }
   };
 
-  useEffect(() => {
-    if (currentUser != null) {
-      navigate('/home');
-    }
-  }, [currentUser]);
+  const handleUpData = async () => {
+    try {
+      const docRef = await addDoc(collection(db, 'users'), {
+        nombre: currentUser.displayName || 'Nombre no disponible',
+        email: currentUser.email || 'Email no disponible',
+        uid: currentUser.uid,
+      });
 
+      console.log('Documento escrito con ID:', docRef.id);
+    } catch (e) {
+      console.error('Error al agregar documento:', e);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (currentUser != null) {
+  //     navigate('/home');
+  //   }
+  // }, [currentUser]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (currentUser != null) {
+        await handleUpData();
+        navigate('/home');
+      }
+    };
+    fetchData();
+  }, [currentUser, navigate]);
   return (
     <>
       {loader && <Loader />}
