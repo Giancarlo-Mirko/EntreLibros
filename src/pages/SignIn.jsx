@@ -5,7 +5,7 @@ import { Wrapper2 } from './theme/generalStyles/generalStyles';
 import { AppContext } from '../App';
 import Loader from '../components/loader/Loader';
 
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 const SignIn = () => {
@@ -13,23 +13,18 @@ const SignIn = () => {
   const { currentUser, usersUid, setUsersUid } = useContext(AppContext);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  // const [users, setUsers] = useState([]);
-  // const [currentUid, setCurrentUid] = useState(null);
 
-  useEffect(() => {
-    const fetchData1 = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'users'));
-        const newUsers = querySnapshot.docs.map((doc) => doc.data().uid);
-        setUsersUid(newUsers); // Actualiza el estado `users` con los nuevos datos
-        console.log('imprimiendo uid de usuarios', usersUid);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData1();
-  }, []);
+  const handleUpData = async () => {
+    try {
+      await setDoc(doc(db, 'users', `${currentUser.uid}`), {
+        nombre: currentUser.displayName,
+        email: currentUser.email,
+        uid: currentUser.uid,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -40,20 +35,6 @@ const SignIn = () => {
     }
   };
 
-  const handleUpData = async () => {
-    try {
-      const docRef = await addDoc(collection(db, 'users'), {
-        nombre: currentUser.displayName || 'Nombre no disponible',
-        email: currentUser.email || 'Email no disponible',
-        uid: currentUser.uid,
-      });
-
-      console.log('Documento escrito con ID:', docRef.id);
-    } catch (e) {
-      console.error('Error al agregar documento:', e);
-    }
-  };
-
   // useEffect(() => {
   //   if (currentUser != null) {
   //     navigate('/home');
@@ -61,15 +42,14 @@ const SignIn = () => {
   // }, [currentUser]);
 
   useEffect(() => {
-    // fetchData1();
     const fetchData = async () => {
       if (currentUser != null) {
-        const isUserRegistered = usersUid.includes(currentUser.uid);
-        console.log('¿El usuario está registrado?', isUserRegistered);
-        if (!isUserRegistered) {
-          await handleUpData();
-          console.log('Crea nuevo usuario en firestore DB');
-        }
+        // const isUserRegistered = usersUid.includes(currentUser.uid);
+        // console.log('¿El usuario está registrado?', isUserRegistered);
+        // if (!isUserRegistered) {
+        //   console.log('Crea nuevo usuario en firestore DB');
+        // }
+        await handleUpData();
         navigate('/home');
       }
     };

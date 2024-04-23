@@ -25,6 +25,7 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
   };
 
+  // recupera el usuario actual y lo guarda en currentUser
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setCurrentUser(currentUser);
