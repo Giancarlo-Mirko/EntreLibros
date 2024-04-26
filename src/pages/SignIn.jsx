@@ -24,7 +24,7 @@ const SignIn = () => {
         email: currentUser.email,
         uid: currentUser.uid,
       });
-      console.log('Usuario registrado en Firestore DB');
+      console.log('Usuario registrado con EXITO en Firestore DB');
     } catch (error) {
       console.log(error);
     }
@@ -46,15 +46,16 @@ const SignIn = () => {
         const citiesRef = collection(db, 'users');
         const q = query(citiesRef, where('uid', '==', currentUser.uid));
         const querySnapshot = await getDocs(q); // Ejecutar la consulta para obtener un snapshot
-
+        console.log('este es el valor de q', q);
         if (!querySnapshot.empty) {
-          // Verificar si el snapshot contiene documentos
-          await handleUpData();
-          console.log('Usuario registrado en Firestore DB');
+          console.log('Usuario YA ESTABA REGISTRADO en Firestore DB');
         } else {
-          console.log('No se encontraron registros para el usuario');
+          await handleUpData();
+          console.log(
+            'No se encontraron registros para el usuario, PROCEDEMOS A REGISTRAR '
+          );
         }
-
+        console.log('nos vamos a HOME');
         navigate('/home');
       }
     };

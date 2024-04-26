@@ -34,11 +34,11 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              {/* <Route path="/signin" element={<SignIn />} /> */}
-              <Route
+              <Route path="/signin" element={<SignIn />} />
+              {/* <Route
                 path="/signin"
                 element={!currentUser ? <SignIn /> : <Navigate to="/home" />}
-              />
+              /> */}
               <Route
                 path="/home"
                 element={currentUser ? <Home /> : <Navigate to="/signin" />}
