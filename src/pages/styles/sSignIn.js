@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // Your existing SignIn component code
 
-const SignInWrapper = styled.div`
+export const SignInWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

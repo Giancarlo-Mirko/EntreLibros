@@ -9,7 +9,7 @@ import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 import { query, where } from 'firebase/firestore';
-import { GoogleButton } from './styles/sSignIn';
+import { GoogleButton, SignInWrapper } from './styles/sSignIn';
 
 const SignIn = () => {
   const { googleSignIn } = UserAuth();
@@ -63,6 +63,7 @@ const SignIn = () => {
 
   return (
     <>
+      <SignInWrapper>
       {loader && <Loader />}
       <Wrapper2>
         <h1>Sign in</h1>
@@ -72,6 +73,7 @@ const SignIn = () => {
           </GoogleButton>
         </div>
       </Wrapper2>
+      </SignInWrapper>
     </>
   );
 };
