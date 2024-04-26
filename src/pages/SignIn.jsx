@@ -9,7 +9,7 @@ import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 import { query, where } from 'firebase/firestore';
-import { Content, GoogleButton } from './styles/sSignIn';
+import { GoogleButton } from './styles/sSignIn';
 
 const SignIn = () => {
   const { googleSignIn } = UserAuth();
@@ -65,12 +65,12 @@ const SignIn = () => {
     <>
       {loader && <Loader />}
       <Wrapper2>
-        <Content>
-          <h1>Sign in</h1>
-          <div>
-            <GoogleButton onClick={handleGoogleSignIn}>Google Button</GoogleButton>
-          </div>
-        </Content>
+        <h1>Sign in</h1>
+        <div>
+          <GoogleButton onClick={handleGoogleSignIn}>
+            Google Button
+          </GoogleButton>
+        </div>
       </Wrapper2>
     </>
   );
