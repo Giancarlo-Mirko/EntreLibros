@@ -28,7 +28,7 @@ const Header = () => {
                 <NavLink to="/libros">Libros</NavLink>
               </li>
               <li>
-                <Link to="/perfil">Perfil</Link>
+                <NavLink to="/perfil">Perfil</NavLink>
               </li>
               <li>
                 <ButtonSalir onClick={handleLogOuth}>Salir</ButtonSalir>

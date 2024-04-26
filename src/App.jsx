@@ -10,6 +10,8 @@ import SignIn from './pages/SignIn.jsx';
 import { getAuth } from 'firebase/auth';
 import { AuthContextProvider } from './context/AuthContextProvider.jsx';
 import Home from './pages/home/Home.jsx';
+import Profile from './pages/profile/Profile.jsx';
+import Libros from './pages/libros/Libros.jsx';
 
 const AppContext = createContext();
 const { Provider: AppProvider, Consumer } = AppContext;
@@ -39,6 +41,14 @@ function App() {
               <Route
                 path="/home"
                 element={currentUser ? <Home /> : <Navigate to="/signin" />}
+              />
+              <Route
+                path="/perfil"
+                element={currentUser ? <Profile /> : <Navigate to="/signin" />}
+              />
+              <Route
+                path="/libros"
+                element={currentUser ? <Libros /> : <Navigate to="/signin" />}
               />
             </Routes>
           </Router>

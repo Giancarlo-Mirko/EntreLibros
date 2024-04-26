@@ -19,7 +19,7 @@ const globalStyles = createGlobalStyle`
     min-height: 100vh;
     /* font-family: 'Nunito', sans-serif; */
     /* font-family: 'Montserrat', sans-serif; */
-
+    
   }
   
   #root {
@@ -36,6 +36,7 @@ const globalStyles = createGlobalStyle`
   h1 h2 h3 p {
     margin: 0;
   }
+  
 `;
 
 export default globalStyles;

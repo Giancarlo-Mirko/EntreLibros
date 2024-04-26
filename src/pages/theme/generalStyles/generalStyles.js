@@ -35,6 +35,10 @@ export const WrapperHeader = styled.div`
   margin: ${(props) => props.margin || '0 auto'};
   width: ${(props) => props.width || '100%'};
 
+  .active {
+    border-bottom: 1px solid;
+  }
+
   @media (width >= ${({ theme }) => theme.media.mediaMD.width}) {
     padding: 0 30px;
   }
