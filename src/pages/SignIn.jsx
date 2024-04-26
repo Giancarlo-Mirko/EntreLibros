@@ -9,7 +9,7 @@ import { addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 import { query, where } from 'firebase/firestore';
-import { Content } from './styles/sSignIn';
+import { Content, GoogleButton } from './styles/sSignIn';
 
 const SignIn = () => {
   const { googleSignIn } = UserAuth();
@@ -91,7 +91,7 @@ const SignIn = () => {
         <Content>
           <h1>Sign in</h1>
           <div>
-            <button onClick={handleGoogleSignIn}>Google Button</button>
+            <GoogleButton onClick={handleGoogleSignIn}>Google Button</GoogleButton>
           </div>
         </Content>
       </Wrapper2>
