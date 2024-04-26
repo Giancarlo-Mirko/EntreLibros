@@ -1,7 +1,6 @@
-import React from 'react';
 import { UserAuth } from '../../context/AuthContextProvider';
-import { useNavigate } from 'react-router-dom';
-import { DivMirko, NavMenu, NavItem, NavItemWrapper } from './sHeader';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { DivMirko, NavMenu, ButtonSalir } from './sHeader';
 import { Wrapper2 } from '../../pages/theme/generalStyles/generalStyles';
 
 const Header = () => {
@@ -18,22 +17,26 @@ const Header = () => {
   };
   return (
     <>
-      <Wrapper2>
-        <DivMirko>
+      <DivMirko>
+        <Wrapper2>
           <NavMenu>
-            <NavItemWrapper>
-              <NavItem to="/">Home</NavItem>
-            </NavItemWrapper>
-            <NavItemWrapper>
-              <NavItem to="/libros">Libros</NavItem>
-            </NavItemWrapper>
-            <NavItemWrapper>
-              <NavItem to="/perfil">Perfil</NavItem>
-            </NavItemWrapper>
-            <button onClick={handleLogOuth}>Salir</button>
+            <ul>
+              <li>
+                <NavLink to="/home">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/libros">Libros</NavLink>
+              </li>
+              <li>
+                <Link to="/perfil">Perfil</Link>
+              </li>
+              <li>
+                <ButtonSalir onClick={handleLogOuth}>Salir</ButtonSalir>
+              </li>
+            </ul>
           </NavMenu>
-        </DivMirko>
-      </Wrapper2>
+        </Wrapper2>
+      </DivMirko>
     </>
   );
 };
