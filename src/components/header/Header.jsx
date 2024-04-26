@@ -1,5 +1,5 @@
 import { UserAuth } from '../../context/AuthContextProvider';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { DivMirko, NavMenu, ButtonSalir } from './sHeader';
 import { Wrapper2 } from '../../pages/theme/generalStyles/generalStyles';
 

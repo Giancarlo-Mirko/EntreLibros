@@ -1,5 +1,3 @@
-// sHeader.js
-
 import styled from 'styled-components';
 
 export const DivMirko = styled.div`

@@ -20,15 +20,12 @@ function App() {
   const auth = getAuth();
   const [currentUser, setCurrentUser] = useState(auth.currentUser || null);
   const [dataOfUser, setDataOfUser] = useState(null);
-  const [usersUid, setUsersUid] = useState([]);
 
   const appValue = {
     setCurrentUser,
     currentUser,
     setDataOfUser,
     dataOfUser,
-    usersUid,
-    setUsersUid,
   };
   return (
     <>
@@ -37,7 +34,11 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/signin" element={<SignIn />} />
+              {/* <Route path="/signin" element={<SignIn />} /> */}
+              <Route
+                path="/signin"
+                element={!currentUser ? <SignIn /> : <Navigate to="/home" />}
+              />
               <Route
                 path="/home"
                 element={currentUser ? <Home /> : <Navigate to="/signin" />}

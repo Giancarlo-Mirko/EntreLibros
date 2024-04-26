@@ -6,14 +6,17 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
+
 import { auth } from '../firebase/firebase';
 import { AppContext } from '../App.jsx';
+import { addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import { query, where } from 'firebase/firestore';
+import { db } from '../firebase/firebase.js';
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const { setCurrentUser } = useContext(AppContext);
-
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);

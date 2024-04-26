@@ -8,19 +8,23 @@ import Loader from '../components/loader/Loader';
 import { addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
+import { query, where } from 'firebase/firestore';
+import { Content } from './styles/sSignIn';
+
 const SignIn = () => {
   const { googleSignIn } = UserAuth();
-  const { currentUser, usersUid, setUsersUid } = useContext(AppContext);
+  const { currentUser } = useContext(AppContext);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
 
   const handleUpData = async () => {
     try {
-      await setDoc(doc(db, 'users', `${currentUser.uid}`), {
+      await setDoc(doc(db, 'users', currentUser.uid), {
         nombre: currentUser.displayName,
         email: currentUser.email,
         uid: currentUser.uid,
       });
+      console.log('Usuario registrado en Firestore DB');
     } catch (error) {
       console.log(error);
     }
@@ -32,38 +36,64 @@ const SignIn = () => {
       await googleSignIn();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoader(false);
     }
   };
 
   // useEffect(() => {
-  //   if (currentUser != null) {
-  //     navigate('/home');
-  //   }
-  // }, [currentUser]);
+  //   const fetchData = async () => {
+  //     console.log('este es el currenUser', currentUser);
+  //     if (currentUser != null) {
+  //       const citiesRef = collection(db, 'users');
+  //       const q = query(citiesRef, where('uid', '==', currentUser.uid));
+  //       const querySnapshot = await getDocs(q); // Ejecutar la consulta para obtener un snapshot
+
+  //       if (!querySnapshot.empty) {
+  //         // Verificar si el snapshot contiene documentos
+  //         await handleUpData();
+  //         console.log('Usuario registrado en Firestore DB');
+  //       } else {
+  //         console.log('No se encontraron registros para el usuario');
+  //       }
+
+  //       navigate('/home');
+  //     }
+  //   };
+
+  //   fetchData(); // Llamar a fetchData directamente, no necesitas return en useEffect
+  // }, [currentUser, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (currentUser != null) {
-        // const isUserRegistered = usersUid.includes(currentUser.uid);
-        // console.log('¿El usuario está registrado?', isUserRegistered);
-        // if (!isUserRegistered) {
-        //   console.log('Crea nuevo usuario en firestore DB');
-        // }
-        await handleUpData();
+      if (currentUser) {
+        const citiesRef = collection(db, 'users');
+        const q = query(citiesRef, where('uid', '==', currentUser.uid));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          console.log('Usuario ya registrado en Firestore DB');
+        } else {
+          await handleUpData();
+        }
+
         navigate('/home');
       }
     };
-    fetchData();
+
+    fetchData(); // Llamar fetchData directamente para verificar si se necesita registro
   }, [currentUser, navigate]);
 
   return (
     <>
       {loader && <Loader />}
       <Wrapper2>
-        <h1>Sign in</h1>
-        <div>
-          <button onClick={handleGoogleSignIn}>Google Button</button>
-        </div>
+        <Content>
+          <h1>Sign in</h1>
+          <div>
+            <button onClick={handleGoogleSignIn}>Google Button</button>
+          </div>
+        </Content>
       </Wrapper2>
     </>
   );
