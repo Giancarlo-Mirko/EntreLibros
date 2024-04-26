@@ -92,7 +92,7 @@ const SignIn = () => {
               <h1>Sign in</h1>
               <div>
                 <GoogleButton onClick={handleGoogleSignIn}>
-                  Google Button
+                  Continuar con Google
                 </GoogleButton>
               </div>
             </Informacion>

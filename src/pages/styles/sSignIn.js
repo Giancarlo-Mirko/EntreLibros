@@ -7,7 +7,7 @@ export const ContentSignIn = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 `;
 
 export const SignInWrapper = styled.div`
