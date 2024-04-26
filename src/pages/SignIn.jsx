@@ -9,7 +9,14 @@ import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 import { query, where } from 'firebase/firestore';
-import { GoogleButton, SignInWrapper } from './styles/sSignIn';
+import {
+  ContentSignIn,
+  GoogleButton,
+  Informacion,
+  Saludo,
+  SignInWrapper,
+} from './styles/sSignIn';
+import imagenLogo from '../images/logo.webp';
 
 const SignIn = () => {
   const { googleSignIn } = UserAuth();
@@ -64,17 +71,34 @@ const SignIn = () => {
 
   return (
     <>
-      <SignInWrapper>
-      {loader && <Loader />}
       <Wrapper2>
-        <h1>Sign in</h1>
-        <div>
-          <GoogleButton onClick={handleGoogleSignIn}>
-            Google Button
-          </GoogleButton>
-        </div>
+        {loader && <Loader />}
+        <ContentSignIn>
+          <SignInWrapper>
+            <Saludo>
+              <span>
+                <h1>Hello</h1>
+                <br />
+                <h1>
+                  <b> Wellcome !</b>
+                </h1>
+              </span>
+              <div className="imagen">
+                <img src={imagenLogo} alt="logo" />
+              </div>
+              <h2>Entre Libros</h2>
+            </Saludo>
+            <Informacion>
+              <h1>Sign in</h1>
+              <div>
+                <GoogleButton onClick={handleGoogleSignIn}>
+                  Google Button
+                </GoogleButton>
+              </div>
+            </Informacion>
+          </SignInWrapper>
+        </ContentSignIn>
       </Wrapper2>
-      </SignInWrapper>
     </>
   );
 };
