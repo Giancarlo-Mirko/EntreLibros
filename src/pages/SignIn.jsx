@@ -5,7 +5,7 @@ import { Wrapper2 } from './theme/generalStyles/generalStyles';
 import { AppContext } from '../App';
 import Loader from '../components/loader/Loader';
 
-import { addDoc, collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 import { query, where } from 'firebase/firestore';
@@ -36,52 +36,29 @@ const SignIn = () => {
       await googleSignIn();
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoader(false);
     }
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     console.log('este es el currenUser', currentUser);
-  //     if (currentUser != null) {
-  //       const citiesRef = collection(db, 'users');
-  //       const q = query(citiesRef, where('uid', '==', currentUser.uid));
-  //       const querySnapshot = await getDocs(q); // Ejecutar la consulta para obtener un snapshot
-
-  //       if (!querySnapshot.empty) {
-  //         // Verificar si el snapshot contiene documentos
-  //         await handleUpData();
-  //         console.log('Usuario registrado en Firestore DB');
-  //       } else {
-  //         console.log('No se encontraron registros para el usuario');
-  //       }
-
-  //       navigate('/home');
-  //     }
-  //   };
-
-  //   fetchData(); // Llamar a fetchData directamente, no necesitas return en useEffect
-  // }, [currentUser, navigate]);
-
   useEffect(() => {
     const fetchData = async () => {
-      if (currentUser) {
+      console.log('este es el currenUser', currentUser);
+      if (currentUser != null) {
         const citiesRef = collection(db, 'users');
         const q = query(citiesRef, where('uid', '==', currentUser.uid));
-        const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocs(q); // Ejecutar la consulta para obtener un snapshot
 
         if (!querySnapshot.empty) {
-          console.log('Usuario ya registrado en Firestore DB');
-        } else {
+          // Verificar si el snapshot contiene documentos
           await handleUpData();
+          console.log('Usuario registrado en Firestore DB');
+        } else {
+          console.log('No se encontraron registros para el usuario');
         }
 
         navigate('/home');
       }
     };
-
-    fetchData(); // Llamar fetchData directamente para verificar si se necesita registro
+    fetchData();
   }, [currentUser, navigate]);
 
   return (
