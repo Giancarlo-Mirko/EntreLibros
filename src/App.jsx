@@ -12,7 +12,6 @@ import { AuthContextProvider } from './context/AuthContextProvider.jsx';
 import Home from './pages/home/Home.jsx';
 import Profile from './pages/profile/Profile.jsx';
 import Libros from './pages/libros/Libros.jsx';
-import Prueba from './Prueba.jsx';
 
 const AppContext = createContext();
 const { Provider: AppProvider, Consumer } = AppContext;
@@ -35,12 +34,11 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/prueba" element={<Prueba/>} />
-              {/* <Route path="/signin" element={<SignIn />} /> */}
-              <Route
+              <Route path="/signin" element={<SignIn />} />
+              {/* <Route
                 path="/signin"
                 element={!currentUser ? <SignIn /> : <Navigate to="/home" />}
-              /> 
+              />  */}
               <Route
                 path="/home"
                 element={currentUser ? <Home /> : <Navigate to="/signin" />}
